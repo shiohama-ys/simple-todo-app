@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#2f6fed" />
+    <title>Simple Todo</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <h1>Todo</h1>
+
+      <form id="task-form" class="task-form" autocomplete="off">
+        <input
+          id="task-input"
+          class="task-input"
+          type="text"
+          name="title"
+          maxlength="200"
+          placeholder="やることを入力"
+          aria-label="やること"
+          required
+        />
+        <button class="add-button" type="submit">追加</button>
+      </form>
+
+      <p id="status" class="status" role="status"></p>
+
+      <div class="list-actions">
+        <button id="clear-button" class="clear-button" type="button" aria-label="すべてのタスクを削除">全部削除</button>
+      </div>
+
+      <ul id="task-list" class="task-list"></ul>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
