@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const { createDatabase } = require('./db');
 
 const MAX_TITLE_LENGTH = 200;
@@ -18,6 +19,17 @@ function createApp(db = createDatabase()) {
 
   app.use(express.json());
   app.use(express.static(path.join(__dirname, '..', 'public')));
+
+  app.use(
+    '/api/',
+    rateLimit({
+      windowMs: 60 * 1000,
+      limit: 300,
+      standardHeaders: true,
+      legacyHeaders: false,
+      message: { error: 'too many requests, please try again later' },
+    })
+  );
 
   app.get('/api/tasks', (req, res) => {
     const rows = db
