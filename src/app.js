@@ -61,7 +61,10 @@ function createApp(db = createDatabase()) {
       typeof req.body?.completed === 'boolean' ? req.body.completed : !row.completed;
 
     db.prepare('UPDATE tasks SET completed = ? WHERE id = ?').run(completed ? 1 : 0, id);
-    res.json({ ...toTask(row), completed });
+    const updated = db
+      .prepare('SELECT id, title, completed, created_at FROM tasks WHERE id = ?')
+      .get(id);
+    res.json(toTask(updated));
   });
 
   app.delete('/api/tasks/:id', (req, res) => {
