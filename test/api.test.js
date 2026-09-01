@@ -80,6 +80,22 @@ test('deletes a task', async () => {
   });
 });
 
+test('deletes all tasks', async () => {
+  await withServer(async (baseUrl) => {
+    await postTask(baseUrl, 'first');
+    await postTask(baseUrl, 'second');
+
+    const response = await fetch(`${baseUrl}/api/tasks`, { method: 'DELETE' });
+    assert.strictEqual(response.status, 204);
+
+    const tasks = await (await fetch(`${baseUrl}/api/tasks`)).json();
+    assert.deepStrictEqual(tasks, []);
+
+    const again = await fetch(`${baseUrl}/api/tasks`, { method: 'DELETE' });
+    assert.strictEqual(again.status, 204);
+  });
+});
+
 test('returns 404 for unknown tasks', async () => {
   await withServer(async (baseUrl) => {
     const patched = await fetch(`${baseUrl}/api/tasks/999`, { method: 'PATCH' });

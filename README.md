@@ -34,6 +34,7 @@ iPhone のブラウザで `http://<パソコンのIPアドレス>:3000` を開�
 - タスクの追加
 - 完了 / 未完了の切り替え
 - タスクの削除
+- タスクの全部削除
 - タスク一覧の表示
 
 ## API
@@ -43,6 +44,7 @@ iPhone のブラウザで `http://<パソコンのIPアドレス>:3000` を開�
 | GET | `/api/tasks` | タスク一覧を取得 |
 | POST | `/api/tasks` | タスクを追加（body: `{ "title": "..." }`） |
 | PATCH | `/api/tasks/:id` | 完了状態を更新（body 省略時はトグル、`{ "completed": true }`） |
+| DELETE | `/api/tasks` | すべてのタスクを削除 |
 | DELETE | `/api/tasks/:id` | タスクを削除 |
 
 ## テスト

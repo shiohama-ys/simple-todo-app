@@ -6,6 +6,7 @@
   const list = document.getElementById('task-list');
   const status = document.getElementById('status');
   const addButton = form.querySelector('button');
+  const clearButton = document.getElementById('clear-button');
 
   function setStatus(message, isError) {
     status.textContent = message;
@@ -58,12 +59,17 @@
     return item;
   }
 
+  function updateClearButton() {
+    clearButton.disabled = list.children.length === 0;
+  }
+
   function render(tasks) {
     list.textContent = '';
     tasks.forEach(function (task) {
       list.appendChild(createTaskElement(task));
     });
     setStatus(tasks.length === 0 ? 'タスクはありません' : '', false);
+    updateClearButton();
   }
 
   async function loadTasks() {
@@ -96,10 +102,31 @@
       if (list.children.length === 0) {
         setStatus('タスクはありません', false);
       }
+      updateClearButton();
     } catch (error) {
       setStatus(error.message, true);
     }
   }
+
+  async function deleteAllTasks() {
+    if (list.children.length === 0) {
+      return;
+    }
+    if (!window.confirm('すべてのタスクを削除しますか？')) {
+      return;
+    }
+
+    clearButton.disabled = true;
+    try {
+      await request('/api/tasks', { method: 'DELETE' });
+      render([]);
+    } catch (error) {
+      setStatus(error.message, true);
+      updateClearButton();
+    }
+  }
+
+  clearButton.addEventListener('click', deleteAllTasks);
 
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -118,6 +145,7 @@
       list.prepend(createTaskElement(task));
       input.value = '';
       setStatus('', false);
+      updateClearButton();
     } catch (error) {
       setStatus(error.message, true);
     } finally {
@@ -126,5 +154,6 @@
     }
   });
 
+  updateClearButton();
   loadTasks();
 })();

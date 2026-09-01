@@ -79,6 +79,11 @@ function createApp(db = createDatabase()) {
     res.json(toTask(updated));
   });
 
+  app.delete('/api/tasks', (req, res) => {
+    db.prepare('DELETE FROM tasks').run();
+    res.status(204).end();
+  });
+
   app.delete('/api/tasks/:id', (req, res) => {
     const id = Number(req.params.id);
     if (!Number.isInteger(id)) {

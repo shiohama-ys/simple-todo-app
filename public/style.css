@@ -81,6 +81,28 @@ h1 {
   color: var(--danger);
 }
 
+.list-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 12px;
+}
+
+.clear-button {
+  min-height: 36px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--danger);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.clear-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 .task-list {
   list-style: none;
   margin: 0;
