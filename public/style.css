@@ -1,0 +1,140 @@
+:root {
+  --bg: #f4f5f7;
+  --card: #ffffff;
+  --text: #1f2430;
+  --muted: #8a90a0;
+  --accent: #2f6fed;
+  --danger: #e2544c;
+  --border: #e3e6ee;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Segoe UI", Roboto, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin: 0 0 16px;
+}
+
+.task-form {
+  display: flex;
+  gap: 8px;
+}
+
+.task-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 12px 14px;
+  font-size: 16px; /* iOS でのズームを防ぐ */
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card);
+  color: inherit;
+}
+
+.task-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.add-button {
+  flex: 0 0 auto;
+  padding: 12px 18px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+.add-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.status {
+  min-height: 1.2em;
+  margin: 12px 2px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.status.error {
+  color: var(--danger);
+}
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.task-item input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  accent-color: var(--accent);
+}
+
+.task-title {
+  flex: 1 1 auto;
+  word-break: break-word;
+}
+
+.task-item.completed .task-title {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.delete-button {
+  flex: 0 0 auto;
+  min-width: 44px;
+  min-height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--danger);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+@media (min-width: 600px) {
+  .app {
+    padding-top: 48px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+}
